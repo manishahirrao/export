@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Namami Food Agro | Quality from Nature, Goodness to the World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest-0:#0B1F15;
+    --forest-1:#0F2B1E;
+    --forest-2:#1B4332;
+    --forest-3:#2D5A45;
+    --gold:#C6952B;
+    --gold-light:#E4C572;
+    --ivory:#FBF8F1;
+    --stone:#EFE9DA;
+    --ink:#1E2420;
+    --ink-soft:#4A544D;
+    --sage:#7C9683;
+    --line:#DAD2BC;
+    --radius:2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--ivory);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    color:var(--forest-1);
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{text-decoration:none; color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{content:''; width:28px; height:1px; background:var(--gold);}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:15px 28px;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:0.02em;
+    border-radius:var(--radius);
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:all .35s cubic-bezier(.4,0,.2,1);
+  }
+  .btn-primary{ background:var(--gold); color:var(--forest-0); }
+  .btn-primary:hover{ background:var(--gold-light); transform:translateY(-2px); box-shadow:0 10px 24px rgba(198,149,43,0.35); }
+  .btn-ghost{ background:transparent; border-color:rgba(251,248,241,0.35); color:var(--ivory); }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold-light); }
+  .btn-dark{ background:var(--forest-1); color:var(--ivory); }
+  .btn-dark:hover{ background:var(--forest-2); transform:translateY(-2px); }
+
+  /* NAV */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(11,31,21,0.0);
+    backdrop-filter:blur(0px);
+    transition:all .4s ease;
+    padding:22px 0;
+  }
+  header.scrolled{
+    background:rgba(11,31,21,0.92);
+    backdrop-filter:blur(10px);
+    padding:14px 0;
+    box-shadow:0 4px 30px rgba(0,0,0,0.2);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand img{ height:44px; width:44px; object-fit:contain; }
+  .brand-text{ display:flex; flex-direction:column; line-height:1.1; }
+  .brand-text .name{ font-family:'Fraunces',serif; font-size:17px; color:var(--ivory); letter-spacing:0.02em; }
+  .brand-text .tag{ font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:0.15em; color:var(--gold-light); text-transform:uppercase; }
+  .nav-links{ display:flex; gap:36px; align-items:center; }
+  .nav-links a{ color:rgba(251,248,241,0.82); font-size:14px; font-weight:400; position:relative; padding:4px 0; transition:color .3s; }
+  .nav-links a::after{ content:''; position:absolute; bottom:0; left:0; width:0; height:1px; background:var(--gold); transition:width .3s ease; }
+  .nav-links a:hover{ color:var(--ivory); }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap:20px; }
+  .burger{ display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:200; }
+  .burger span{ width:24px; height:2px; background:var(--ivory); transition:all .3s; }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    background:
+      radial-gradient(ellipse 80% 60% at 75% 15%, rgba(198,149,43,0.16), transparent 60%),
+      linear-gradient(160deg, var(--forest-0) 0%, var(--forest-1) 45%, #12331F 100%);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image: radial-gradient(rgba(228,197,114,0.10) 1px, transparent 1px);
+    background-size: 26px 26px;
+    opacity:0.5;
+    mask-image: linear-gradient(180deg, transparent, black 30%, black 70%, transparent);
+  }
+  .hero-grain{
+    position:absolute; top:0; right:-6%; height:100%; width:52%;
+    opacity:0.9;
+    pointer-events:none;
+  }
+  .hero-grain svg{ width:100%; height:100%; }
+  .hero-inner{ position:relative; z-index:2; padding-top:120px; padding-bottom:80px; width:100%; }
+  .hero-grid{ display:grid; grid-template-columns:1.15fr 0.85fr; gap:60px; align-items:center; }
+  .hero h1{
+    font-size:clamp(38px, 5vw, 64px);
+    color:var(--ivory);
+    line-height:1.06;
+    font-weight:500;
+    max-width:640px;
+    opacity:0;
+    animation:riseIn 1s cubic-bezier(.16,1,.3,1) .2s forwards;
+  }
+  .hero h1 em{ font-style:italic; color:var(--gold-light); font-weight:400; }
+  .hero p.lede{
+    margin-top:26px; font-size:17px; color:rgba(251,248,241,0.75); max-width:480px;
+    opacity:0; animation:riseIn 1s cubic-bezier(.16,1,.3,1) .4s forwards;
+  }
+  .hero-actions{ margin-top:40px; display:flex; gap:16px; flex-wrap:wrap;
+    opacity:0; animation:riseIn 1s cubic-bezier(.16,1,.3,1) .6s forwards; }
+  @keyframes riseIn{ from{opacity:0; transform:translateY(22px);} to{opacity:1; transform:translateY(0);} }
+
+  .hero-badges{
+    margin-top:56px; display:flex; gap:34px; flex-wrap:wrap;
+    opacity:0; animation:riseIn 1s cubic-bezier(.16,1,.3,1) .8s forwards;
+  }
+  .hero-badges .badge{ display:flex; flex-direction:column; gap:4px; }
+  .hero-badges .badge .num{ font-family:'Fraunces',serif; font-size:26px; color:var(--gold-light); }
+  .hero-badges .badge .lbl{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(251,248,241,0.55); }
+
+  .hero-visual{ position:relative; }
+  .globe-card{
+    position:relative; border-radius:4px; overflow:hidden;
+    aspect-ratio:4/5;
+    box-shadow:0 40px 80px rgba(0,0,0,0.45);
+    opacity:0; animation:riseIn 1.2s cubic-bezier(.16,1,.3,1) .5s forwards;
+  }
+  .globe-card img{ width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.02); }
+  .globe-card::after{ content:''; position:absolute; inset:0; background:linear-gradient(200deg, rgba(15,43,30,0.05), rgba(11,31,21,0.55)); }
+  .globe-tag{
+    position:absolute; bottom:20px; left:20px; right:20px; z-index:3;
+    background:rgba(11,31,21,0.72); backdrop-filter:blur(6px);
+    border:1px solid rgba(228,197,114,0.25);
+    padding:16px 18px; border-radius:2px;
+  }
+  .globe-tag .t1{ font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; color:var(--gold-light); text-transform:uppercase; }
+  .globe-tag .t2{ font-family:'Fraunces',serif; font-size:16px; color:var(--ivory); margin-top:4px; }
+
+  .scroll-cue{ position:absolute; bottom:32px; left:32px; display:flex; align-items:center; gap:10px; z-index:3; }
+  .scroll-cue .line{ width:1px; height:38px; background:linear-gradient(var(--gold), transparent); animation:pulseLine 2s ease-in-out infinite; }
+  @keyframes pulseLine{ 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+  .scroll-cue span{ font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.14em; color:rgba(251,248,241,0.5); text-transform:uppercase; }
+
+  /* SECTION GENERIC */
+  section{ padding:120px 0; position:relative; }
+  .section-head{ max-width:640px; margin-bottom:64px; }
+  .section-head h2{ font-size:clamp(28px,3.4vw,42px); line-height:1.15; }
+  .section-head p{ margin-top:18px; color:var(--ink-soft); font-size:16px; max-width:560px; }
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* PILLARS */
+  .pillars{ background:var(--forest-1); color:var(--ivory); padding:64px 0; }
+  .pillars .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; }
+  .pillar-item{ display:flex; align-items:center; gap:14px; flex:1; min-width:220px; }
+  .pillar-item .ic{ width:42px; height:42px; border:1px solid var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .pillar-item .ic svg{ width:19px; height:19px; stroke:var(--gold-light); }
+  .pillar-item h4{ color:var(--ivory); font-size:16px; font-weight:500; }
+  .pillar-item p{ font-size:13px; color:rgba(251,248,241,0.6); margin-top:2px; }
+  .pillar-divider{ width:1px; height:36px; background:rgba(251,248,241,0.15); }
+
+  /* IMPACT STRIP */
+  .impact{ background:var(--ivory); padding:0; border-bottom:1px solid var(--line); }
+  .impact .wrap{ display:grid; grid-template-columns:repeat(4,1fr); }
+  .impact-item{ padding:44px 24px; text-align:center; border-left:1px solid var(--line); }
+  .impact-item:first-child{ border-left:none; }
+  .impact-item .n{ font-family:'Fraunces',serif; font-size:34px; color:var(--forest-1); }
+  .impact-item .n span{ color:var(--gold); }
+  .impact-item .l{ margin-top:6px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); }
+
+  /* PRODUCTS */
+  .products{ background:var(--ivory); }
+  .cat-tabs{ display:flex; gap:12px; margin-bottom:48px; }
+  .cat-tab{ padding:11px 22px; border:1px solid var(--line); border-radius:30px; font-size:13.5px; cursor:pointer; transition:all .3s; background:transparent; color:var(--ink-soft); }
+  .cat-tab.active{ background:var(--forest-1); border-color:var(--forest-1); color:var(--ivory); }
+  .product-panels{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+  .panel{ display:none; grid-column:1/-1; }
+  .panel.active{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  .p-card{
+    background:#fff; border:1px solid var(--line); border-radius:3px; overflow:hidden;
+    transition:transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s;
+  }
+  .p-card:hover{ transform:translateY(-8px); box-shadow:0 26px 48px rgba(27,67,50,0.14); }
+  .p-card .img-wrap{ aspect-ratio:4/3; overflow:hidden; background:var(--stone); }
+  .p-card .img-wrap img{ width:100%; height:100%; object-fit:cover; transition:transform .7s cubic-bezier(.16,1,.3,1); }
+  .p-card:hover .img-wrap img{ transform:scale(1.08); }
+  .p-card .p-body{ padding:22px; }
+  .p-card h4{ font-size:18px; margin-bottom:6px; }
+  .p-card .p-meta{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--sage); letter-spacing:0.03em; margin-bottom:12px; }
+  .p-card p.desc{ font-size:13.5px; color:var(--ink-soft); }
+  .spec-note{ margin-top:64px; border:1px dashed var(--line); border-radius:3px; padding:22px 26px; display:flex; gap:16px; align-items:flex-start; background:var(--stone); }
+  .spec-note svg{ width:20px; height:20px; stroke:var(--gold); flex-shrink:0; margin-top:2px; }
+  .spec-note p{ font-size:13.5px; color:var(--ink-soft); }
+  .spec-note strong{ color:var(--forest-1); }
+
+  /* PROCESS */
+  .process{ background:var(--stone); }
+  .process-list{ display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--line); border:1px solid var(--line); }
+  .proc-item{ background:var(--stone); padding:40px 30px; position:relative; transition:background .4s; }
+  .proc-item:hover{ background:var(--ivory); }
+  .proc-item .idx{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold); letter-spacing:0.1em; }
+  .proc-item h4{ font-size:19px; margin:16px 0 10px; }
+  .proc-item p{ font-size:13.5px; color:var(--ink-soft); }
+  .proc-arrow{ position:absolute; top:40px; right:-13px; z-index:2; width:26px; height:26px; background:var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  .proc-arrow svg{ width:12px; height:12px; stroke:var(--forest-0); }
+
+  /* CERTIFICATIONS */
+  .certs{ background:var(--forest-1); color:var(--ivory); }
+  .certs .section-head h2, .certs .section-head p{ color:var(--ivory); }
+  .certs .section-head p{ color:rgba(251,248,241,0.65); }
+  .cert-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(251,248,241,0.12); border:1px solid rgba(251,248,241,0.12); }
+  .cert-card{ background:var(--forest-1); padding:38px 26px; text-align:center; transition:background .35s; }
+  .cert-card:hover{ background:var(--forest-2); }
+  .cert-card .cbadge{ width:56px; height:56px; margin:0 auto 18px; border:1px solid var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  .cert-card .cbadge svg{ width:24px; height:24px; stroke:var(--gold-light); }
+  .cert-card h4{ color:var(--ivory); font-size:15.5px; margin-bottom:8px; }
+  .cert-card p{ font-size:12.5px; color:rgba(251,248,241,0.55); }
+
+  /* MARKETS / SIGNATURE MAP */
+  .markets{ background:var(--ivory); overflow:hidden; }
+  .map-frame{ position:relative; border:1px solid var(--line); border-radius:3px; background:radial-gradient(ellipse at 30% 40%, #F6F1E4, var(--ivory)); padding:20px; }
+  .map-svg{ width:100%; height:auto; display:block; }
+  .route-path{ fill:none; stroke:var(--gold); stroke-width:1.4; stroke-dasharray:6 6; animation:dashMove 3s linear infinite; opacity:0.85; }
+  @keyframes dashMove{ to{ stroke-dashoffset:-120; } }
+  .port-dot{ fill:var(--forest-2); }
+  .port-dot.origin{ fill:var(--gold); }
+  .port-pulse{ fill:none; stroke:var(--gold); stroke-width:1; opacity:0; animation:pulseRing 2.6s ease-out infinite; }
+  @keyframes pulseRing{ 0%{ r:4; opacity:0.9; } 100%{ r:16; opacity:0; } }
+  .land{ fill:#E4DCC6; }
+  .market-legend{ margin-top:36px; display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .ml-item{ display:flex; gap:14px; align-items:flex-start; padding:18px; border:1px solid var(--line); border-radius:3px; background:#fff; }
+  .ml-item .dot{ width:8px; height:8px; border-radius:50%; background:var(--gold); margin-top:6px; flex-shrink:0; }
+  .ml-item h5{ font-family:'Fraunces',serif; font-size:15.5px; color:var(--forest-1); font-weight:500; }
+  .ml-item p{ font-size:12.5px; color:var(--ink-soft); margin-top:4px; }
+
+  /* WHY US */
+  .why{ background:var(--stone); }
+  .why-grid{ display:grid; grid-template-columns:1fr 1fr; gap:70px; align-items:center; }
+  .why-img{ position:relative; border-radius:3px; overflow:hidden; aspect-ratio:1/1.05; }
+  .why-img img{ width:100%; height:100%; object-fit:cover; }
+  .why-list{ display:flex; flex-direction:column; gap:30px; }
+  .why-row{ display:flex; gap:20px; }
+  .why-row .num{ font-family:'Fraunces',serif; font-size:22px; color:var(--gold); flex-shrink:0; width:36px; }
+  .why-row h4{ font-size:18px; margin-bottom:6px; }
+  .why-row p{ font-size:14px; color:var(--ink-soft); }
+
+  /* TESTIMONIAL */
+  .testimonial{ background:var(--ivory); padding:100px 0; }
+  .testi-card{ background:var(--forest-1); border-radius:4px; padding:60px; position:relative; overflow:hidden; }
+  .testi-card::before{ content:'\201C'; position:absolute; top:-10px; left:30px; font-family:'Fraunces',serif; font-size:180px; color:rgba(228,197,114,0.12); line-height:1; }
+  .testi-grid{ display:grid; grid-template-columns:1fr auto; gap:50px; align-items:center; position:relative; z-index:1; }
+  .testi-quote p{ font-family:'Fraunces',serif; font-size:24px; line-height:1.45; color:var(--ivory); font-weight:400; max-width:620px; }
+  .testi-attrib{ margin-top:26px; display:flex; align-items:center; gap:14px; }
+  .testi-attrib .dash{ width:30px; height:1px; background:var(--gold); }
+  .testi-attrib .who{ font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.04em; color:var(--gold-light); }
+  .testi-stats{ display:flex; flex-direction:column; gap:22px; border-left:1px solid rgba(251,248,241,0.15); padding-left:44px; }
+  .testi-stats .ts-num{ font-family:'Fraunces',serif; font-size:30px; color:var(--gold-light); }
+  .testi-stats .ts-lbl{ font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(251,248,241,0.5); margin-top:2px; }
+
+  /* CONTACT / RFQ */
+  .contact{ background:var(--forest-1); color:var(--ivory); }
+  .contact .section-head h2{ color:var(--ivory); }
+  .contact .section-head p{ color:rgba(251,248,241,0.65); }
+  .contact-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px; }
+  .contact-info-item{ margin-bottom:30px; }
+  .contact-info-item .lbl{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-light); margin-bottom:6px; }
+  .contact-info-item .val{ font-size:15.5px; color:var(--ivory); }
+  .contact-info-item .val a{ border-bottom:1px solid rgba(228,197,114,0.4); transition:border-color .3s; }
+  .contact-info-item .val a:hover{ border-color:var(--gold-light); }
+
+  form{ background:rgba(251,248,241,0.03); border:1px solid rgba(251,248,241,0.12); border-radius:3px; padding:36px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px; }
+  .form-field{ display:flex; flex-direction:column; gap:8px; }
+  .form-field.full{ grid-column:1/-1; }
+  .form-field label{ font-size:11.5px; letter-spacing:0.05em; text-transform:uppercase; color:rgba(251,248,241,0.55); font-family:'IBM Plex Mono',monospace; }
+  .form-field input, .form-field select, .form-field textarea{
+    background:rgba(251,248,241,0.06); border:1px solid rgba(251,248,241,0.18); border-radius:2px;
+    padding:12px 14px; color:var(--ivory); font-size:14px; font-family:'Inter',sans-serif;
+    transition:border-color .3s, background .3s;
+  }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus{ outline:none; border-color:var(--gold); background:rgba(251,248,241,0.09); }
+  .form-field textarea{ resize:vertical; min-height:90px; }
+  .form-field select option{ background:var(--forest-1); }
+  form .btn-primary{ width:100%; justify-content:center; margin-top:8px; }
+  .form-note{ font-size:11.5px; color:rgba(251,248,241,0.4); margin-top:14px; text-align:center; }
+
+  /* FOOTER */
+  footer{ background:var(--forest-0); color:rgba(251,248,241,0.6); padding:64px 0 28px; }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:50px; margin-bottom:56px; }
+  .foot-brand{ display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .foot-brand img{ height:38px; width:38px; }
+  .foot-brand span{ font-family:'Fraunces',serif; color:var(--ivory); font-size:17px; }
+  .foot-grid p{ font-size:13.5px; max-width:280px; }
+  .foot-col h5{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-light); margin-bottom:18px; }
+  .foot-col a{ display:block; font-size:13.5px; color:rgba(251,248,241,0.6); margin-bottom:12px; transition:color .3s; }
+  .foot-col a:hover{ color:var(--ivory); }
+  .foot-bottom{ border-top:1px solid rgba(251,248,241,0.1); padding-top:26px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  .foot-bottom p{ font-size:12px; color:rgba(251,248,241,0.4); }
+
+  @media (max-width: 900px){
+    .nav-links{ position:fixed; top:0; right:0; height:100vh; width:78%; max-width:340px; background:var(--forest-0); flex-direction:column; justify-content:center; align-items:flex-start; padding:0 40px; gap:28px; transform:translateX(100%); transition:transform .45s cubic-bezier(.16,1,.3,1); }
+    .nav-links.open{ transform:translateX(0); }
+    .burger{ display:flex; }
+    .nav-cta .btn-ghost{ display:none; }
+    .hero-grid{ grid-template-columns:1fr; }
+    .hero-visual{ order:-1; max-width:340px; }
+    .pillars .wrap{ flex-direction:column; align-items:flex-start; }
+    .pillar-divider{ display:none; }
+    .impact .wrap{ grid-template-columns:1fr 1fr; }
+    .impact-item:nth-child(3){ border-left:none; }
+    .product-panels, .panel.active{ grid-template-columns:1fr; }
+    .process-list{ grid-template-columns:1fr; }
+    .proc-arrow{ display:none; }
+    .cert-grid{ grid-template-columns:1fr 1fr; }
+    .why-grid, .contact-grid{ grid-template-columns:1fr; gap:40px; }
+    .form-row{ grid-template-columns:1fr; }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+    .market-legend{ grid-template-columns:1fr; }
+    .testi-grid{ grid-template-columns:1fr; }
+    .testi-stats{ border-left:none; padding-left:0; border-top:1px solid rgba(251,248,241,0.15); padding-top:26px; flex-direction:row; flex-wrap:wrap; gap:30px; }
+    .testi-card{ padding:40px 28px; }
+    .testi-quote p{ font-size:20px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<header id="siteHeader">
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="brand">
+        <img src="assests/logo.png" alt="Namami Food Agro logo">
+        <div class="brand-text">
+          <span class="name">Namami Food Agro</span>
+          <span class="tag">Quality · Trust · Global</span>
+        </div>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#products">Products</a>
+        <a href="#process">Sourcing</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#markets">Markets</a>
+        <a href="#why">Why Us</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-ghost">Get in touch</a>
+        <a href="#contact" class="btn btn-primary">Request Quote</a>
+        <div class="burger" id="burger"><span></span><span></span><span></span></div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-grain">
+    <svg viewBox="0 0 400 800" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#E4C572" stroke-width="1" fill="none" opacity="0.35">
+        <path d="M100 750 Q95 500 110 250 Q115 150 140 60"/>
+        <path d="M140 60 Q120 90 90 100"/>
+        <path d="M140 60 Q160 90 190 95"/>
+        <path d="M130 150 Q105 175 78 182"/>
+        <path d="M130 150 Q155 175 182 180"/>
+        <path d="M122 250 Q98 272 72 278"/>
+        <path d="M122 250 Q146 272 172 276"/>
+        <path d="M250 780 Q245 520 258 260 Q262 160 285 70"/>
+        <path d="M285 70 Q265 100 235 108"/>
+        <path d="M285 70 Q305 100 333 106"/>
+        <path d="M276 165 Q252 188 226 195"/>
+        <path d="M276 165 Q300 188 326 192"/>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap hero-inner">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow" style="color:var(--gold-light)">APEDA Registered Exporter · India</div>
+        <h1>Quality from nature,<br><em>goodness</em> to the world.</h1>
+        <p class="lede">Namami Food Agro sources, grades, and exports fresh produce, grains, and pulses direct from India's farm belts to importers and wholesalers across the globe — with full traceability from field to freight.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Request a Quote</a>
+          <a href="#products" class="btn btn-ghost">View Product Catalog</a>
+        </div>
+        <div class="hero-badges">
+          <div class="badge"><span class="num">APEDA</span><span class="lbl">Registered Exporter</span></div>
+          <div class="badge"><span class="num">FSSAI</span><span class="lbl">Licensed Facility</span></div>
+          <div class="badge"><span class="num">FCL/LCL</span><span class="lbl">Container Options</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="globe-card">
+          <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=900&q=80" alt="Golden wheat field ready for harvest">
+          <div class="globe-tag">
+            <div class="t1">Sourcing Region</div>
+            <div class="t2">Nashik–Pune Farm Corridor</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><div class="line"></div><span>Scroll</span></div>
+</section>
+
+<div class="pillars">
+  <div class="wrap">
+    <div class="pillar-item">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg></div>
+      <div><h4>Quality</h4><p>Graded, lab-checked, export-ready</p></div>
+    </div>
+    <div class="pillar-divider"></div>
+    <div class="pillar-item">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg></div>
+      <div><h4>Trust</h4><p>Certified, compliant, traceable</p></div>
+    </div>
+    <div class="pillar-divider"></div>
+    <div class="pillar-item">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 6 4 9s-1.5 6.5-4 9c-2.5-2.5-4-6-4-9s1.5-6.5 4-9z"/></svg></div>
+      <div><h4>Global</h4><p>Built for cross-border buyers</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="impact">
+  <div class="wrap">
+    <div class="impact-item"><div class="n"><span>25+</span></div><div class="l">MT Shipped Monthly Capacity</div></div>
+    <div class="impact-item"><div class="n"><span>3</span></div><div class="l">Continents Served</div></div>
+    <div class="impact-item"><div class="n"><span>6</span></div><div class="l">Core Export Product Lines</div></div>
+    <div class="impact-item"><div class="n"><span>48hr</span></div><div class="l">Typical RFQ Turnaround</div></div>
+  </div>
+</div>
+
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Product Catalog</div>
+      <h2>Two categories, sourced with intent.</h2>
+      <p>Every lot is selected for consistency in grade, moisture, and appearance before it's cleared for export packing.</p>
+    </div>
+    <div class="cat-tabs reveal">
+      <button class="cat-tab active" data-cat="produce">Fresh Produce</button>
+      <button class="cat-tab" data-cat="grains">Grains &amp; Pulses</button>
+    </div>
+    <div class="product-panels">
+      <div class="panel active" id="panel-produce">
+        <div class="p-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1562746713-0c512f966832?auto=format&fit=crop&w=700&q=80" alt="Fresh red onions harvested and stacked"></div>
+          <div class="p-body"><h4>Fresh Onions</h4><div class="p-meta mono">HSN 0703.10 · 25/40kg mesh bags</div><p class="desc">Nashik-grade red onions, size-sorted, sold by container load with pre-shipment sampling on request.</p></div>
+        </div>
+        <div class="p-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1596363505729-4190a9506133?auto=format&fit=crop&w=700&q=80" alt="Fresh green table grapes on the vine"></div>
+          <div class="p-body"><h4>Table Grapes</h4><div class="p-meta mono">HSN 0806.10 · Seasonal · Cold chain</div><p class="desc">Nashik table grapes, harvested to order, packed under cold chain for export freshness.</p></div>
+        </div>
+        <div class="p-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1671495423038-acb5024abe18?auto=format&fit=crop&w=700&q=80" alt="Fresh pomegranates with visible seeds"></div>
+          <div class="p-body"><h4>Pomegranates</h4><div class="p-meta mono">HSN 0810.90 · 4/5kg vented cartons</div><p class="desc">Bhagwa variety pomegranates, hand-sorted for size and colour uniformity.</p></div>
+        </div>
+      </div>
+      <div class="panel" id="panel-grains">
+        <div class="p-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=700&q=80" alt="White basmati rice grains close up"></div>
+          <div class="p-body"><h4>Basmati &amp; Non-Basmati Rice</h4><div class="p-meta mono">HSN 1006.30 · 25/50kg PP/jute</div><p class="desc">Sortex-cleaned rice with defined broken percentage, milled to buyer specification.</p></div>
+        </div>
+        <div class="p-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1638378545909-d78bd9b4271c?auto=format&fit=crop&w=700&q=80" alt="Bowl of assorted lentils and pulses"></div>
+          <div class="p-body"><h4>Pulses (Chana, Toor, Moong)</h4><div class="p-meta mono">HSN 0713 · 25/50kg PP bags</div><p class="desc">Machine-cleaned pulses with moisture and foreign-matter levels held to export tolerance.</p></div>
+        </div>
+        <div class="p-card">
+          <div class="img-wrap"><img src="https://images.unsplash.com/photo-1592997572594-34be01bc36c7?auto=format&fit=crop&w=700&q=80" alt="Wheat grain close up"></div>
+          <div class="p-body"><h4>Wheat &amp; Coarse Grains</h4><div class="p-meta mono">HSN 1001 · Bulk / bagged</div><p class="desc">Milling-grade wheat sourced by season, available in bulk or standard export bagging.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="spec-note reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+      <p><strong>Full specification sheets available on request.</strong> Detailed grade, moisture, packaging, and MOQ data for every SKU is shared as part of the RFQ response — this catalog shows a representative selection of our current product range.</p>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">How An Order Moves</div>
+      <h2>From field to freight, in four checked steps.</h2>
+    </div>
+    <div class="process-list reveal">
+      <div class="proc-item">
+        <div class="idx mono">01 / SOURCING</div>
+        <h4>Farm-direct procurement</h4>
+        <p>Produce and grain are procured directly from our grower network in the Nashik–Pune corridor, keeping the chain short and traceable.</p>
+        <div class="proc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="proc-item">
+        <div class="idx mono">02 / GRADING &amp; QC</div>
+        <h4>Sort, clean, verify</h4>
+        <p>Every lot is graded for size and quality, cleaned to export tolerance, and checked against moisture and residue standards.</p>
+        <div class="proc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="proc-item">
+        <div class="idx mono">03 / PACKAGING</div>
+        <h4>Export-grade packing</h4>
+        <p>Packed to destination requirements — vented cartons for fresh produce, PP or jute bagging for grains and pulses.</p>
+        <div class="proc-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </div>
+      <div class="proc-item">
+        <div class="idx mono">04 / EXPORT</div>
+        <h4>Documented dispatch</h4>
+        <p>Shipped FCL/LCL with full export documentation — invoice, packing list, certificate of origin, and phytosanitary certificate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="certs" id="certifications">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Compliance</div>
+      <h2>Registered and licensed to export.</h2>
+      <p>Our documentation is kept current and is made available to buyers as part of due diligence.</p>
+    </div>
+    <div class="cert-grid reveal">
+      <div class="cert-card">
+        <div class="cbadge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M12 3l8 4v5c0 5-3.4 8.4-8 9.9C7.4 20.4 4 17 4 12V7z"/></svg></div>
+        <h4>APEDA Registered</h4><p>Registered exporter under the Agricultural &amp; Processed Food Products Export Development Authority.</p>
+      </div>
+      <div class="cert-card">
+        <div class="cbadge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l6 6L20 6"/></svg></div>
+        <h4>FSSAI Licensed</h4><p>Food safety license held for handling, packing, and export operations.</p>
+      </div>
+      <div class="cert-card">
+        <div class="cbadge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M8 9h8M8 13h5"/></svg></div>
+        <h4>IEC Code Active</h4><p>Import Export Code on file with all shipments, quoted on every invoice.</p>
+      </div>
+      <div class="cert-card">
+        <div class="cbadge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M12 3c2.5 2.5 4 6 4 9s-1.5 6.5-4 9c-2.5-2.5-4-6-4-9s1.5-6.5 4-9z"/><circle cx="12" cy="12" r="9"/></svg></div>
+        <h4>GST Registered</h4><p>Fully registered for domestic procurement and export invoicing under GST.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="markets" id="markets">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Global Reach</div>
+      <h2>Shipping lanes we serve.</h2>
+      <p>Dispatch is organised through major Indian ports, with routing built around the destination region and cargo type.</p>
+    </div>
+    <div class="map-frame reveal">
+      <svg class="map-svg" viewBox="0 0 1000 420" xmlns="http://www.w3.org/2000/svg">
+        <g class="land">
+          <path d="M60 180 Q90 140 150 150 Q190 130 230 160 Q250 190 220 220 Q240 250 200 270 Q150 290 110 260 Q60 250 60 210 Z"/>
+          <path d="M430 90 Q490 70 560 90 Q620 80 660 110 Q640 150 600 160 Q560 190 520 170 Q470 190 440 160 Q410 130 430 90 Z"/>
+          <path d="M480 190 Q520 200 540 240 Q550 290 520 320 Q490 340 470 300 Q450 260 460 220 Z"/>
+          <path d="M560 200 Q650 190 720 220 Q760 240 740 270 Q700 290 640 280 Q590 270 560 240 Z"/>
+          <path d="M750 260 Q800 260 830 290 Q820 320 780 320 Q750 300 750 260 Z"/>
+          <path d="M120 300 Q160 320 150 360 Q130 380 100 360 Q90 320 120 300 Z"/>
+        </g>
+        <path class="route-path" d="M560 210 Q500 190 430 175"/>
+        <path class="route-path" d="M560 210 Q620 150 640 120"/>
+        <path class="route-path" d="M560 210 Q650 240 730 250"/>
+        <path class="route-path" d="M560 210 Q560 260 545 300"/>
+        <circle class="port-dot origin" cx="560" cy="210" r="5"/>
+        <circle class="port-pulse" cx="560" cy="210" r="4"/>
+        <circle class="port-dot" cx="430" cy="175" r="4"/>
+        <circle class="port-dot" cx="640" cy="120" r="4"/>
+        <circle class="port-dot" cx="730" cy="250" r="4"/>
+        <circle class="port-dot" cx="545" cy="300" r="4"/>
+        <text x="560" y="235" font-family="IBM Plex Mono" font-size="11" fill="#1B4332">JNPT / Mundra</text>
+        <text x="380" y="168" font-family="IBM Plex Mono" font-size="10" fill="#4A544D">Gulf &amp; Middle East</text>
+        <text x="648" y="112" font-family="IBM Plex Mono" font-size="10" fill="#4A544D">Europe</text>
+        <text x="738" y="242" font-family="IBM Plex Mono" font-size="10" fill="#4A544D">Southeast Asia</text>
+        <text x="500" y="320" font-family="IBM Plex Mono" font-size="10" fill="#4A544D">Africa</text>
+      </svg>
+    </div>
+    <div class="market-legend reveal">
+      <div class="ml-item"><div class="dot"></div><div><h5>Gulf &amp; Middle East</h5><p>Strong demand for fresh produce and rice — short transit time from western Indian ports.</p></div></div>
+      <div class="ml-item"><div class="dot"></div><div><h5>Europe</h5><p>Pulses and grain shipped to specification, with documentation aligned to EU import checks.</p></div></div>
+      <div class="ml-item"><div class="dot"></div><div><h5>Southeast Asia &amp; Africa</h5><p>Bulk grain and pulses moved on FCL/LCL routing, priced with freight in mind.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="why-img reveal">
+        <img src="https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=800&q=80" alt="Farmer's hands holding grain">
+      </div>
+      <div class="reveal">
+        <div class="eyebrow">Why Buyers Work With Us</div>
+        <h2 style="margin-bottom:36px;">A shorter, more accountable supply chain.</h2>
+        <div class="why-list">
+          <div class="why-row"><span class="num mono">01</span><div><h4>Farm-direct sourcing</h4><p>Fewer intermediaries between the grower and the container, which means tighter control over quality and price.</p></div></div>
+          <div class="why-row"><span class="num mono">02</span><div><h4>Documentation handled end to end</h4><p>Certificates, invoices, and shipping paperwork prepared and shared before the cargo moves — not after.</p></div></div>
+          <div class="why-row"><span class="num mono">03</span><div><h4>Specification-first quoting</h4><p>Every quote is built against your stated grade, packaging, and quantity, not a generic price list.</p></div></div>
+          <div class="why-row"><span class="num mono">04</span><div><h4>Responsive to seasonal sourcing</h4><p>Sourcing calendar is tracked against harvest windows so availability estimates stay realistic.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="wrap">
+    <div class="testi-card reveal">
+      <div class="testi-grid">
+        <div class="testi-quote">
+          <p>Namami was upfront about grade and packaging before we ever signed a PO. Documentation arrived ahead of the vessel every time — that's rare with a new supplier relationship.</p>
+          <div class="testi-attrib">
+            <div class="dash"></div>
+            <div class="who">PROCUREMENT LEAD · MIDDLE EAST IMPORT PARTNER</div>
+          </div>
+        </div>
+        <div class="testi-stats">
+          <div><div class="ts-num">100%</div><div class="ts-lbl">Docs Shared Pre-Shipment</div></div>
+          <div><div class="ts-num">1–2</div><div class="ts-lbl">Day RFQ Response</div></div>
+          <div><div class="ts-num">Zero</div><div class="ts-lbl">Rejected Consignments</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Get A Quote</div>
+      <h2>Tell us what you need to source.</h2>
+      <p>Share your product, quantity, and destination port — we'll come back with a specification-matched quote.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="contact-info-item">
+          <div class="lbl">Registered Office</div>
+          <div class="val">Nashik–Pune Corridor, Maharashtra, India</div>
+        </div>
+        <div class="contact-info-item">
+          <div class="lbl">Email</div>
+          <div class="val"><a href="mailto:export@namamifoodagro.com">export@namamifoodagro.com</a></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="lbl">Phone / WhatsApp</div>
+          <div class="val"><a href="tel:+910000000000">+91 XX XXX XXXXX</a></div>
+        </div>
+        <div class="contact-info-item">
+          <div class="lbl">Response Time</div>
+          <div class="val">RFQs are typically answered within 1–2 business days</div>
+        </div>
+      </div>
+      <form class="reveal" id="rfqForm">
+        <div class="form-row">
+          <div class="form-field"><label>Full Name</label><input type="text" required placeholder="Your name"></div>
+          <div class="form-field"><label>Company</label><input type="text" required placeholder="Company name"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Country</label><input type="text" required placeholder="Destination country"></div>
+          <div class="form-field"><label>Destination Port</label><input type="text" placeholder="e.g. Jebel Ali, Rotterdam"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Product Interest</label>
+            <select>
+              <option>Fresh Onions</option>
+              <option>Table Grapes</option>
+              <option>Pomegranates</option>
+              <option>Basmati / Non-Basmati Rice</option>
+              <option>Pulses (Chana, Toor, Moong)</option>
+              <option>Wheat &amp; Coarse Grains</option>
+              <option>Other — specify in message</option>
+            </select>
+          </div>
+          <div class="form-field"><label>Quantity Required (MT)</label><input type="text" placeholder="e.g. 25 MT / 1 FCL"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field full"><label>Message</label><textarea placeholder="Grade, packaging preference, target timeline, or any other specification"></textarea></div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Inquiry</button>
+        <p class="form-note">This form is a template — connect it to your email or CRM before going live.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <img src="assests/logo.png" alt="Namami Food Agro logo">
+          <span>Namami Food Agro</span>
+        </div>
+        <p>An APEDA-registered exporter of fresh produce, grains, and pulses, sourced from India's Nashik–Pune farm corridor and shipped to buyers worldwide.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Navigate</h5>
+        <a href="#products">Products</a>
+        <a href="#process">Sourcing</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#markets">Markets</a>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="#why">Why Us</a>
+        <a href="#contact">Contact</a>
+        <a href="#">Company Profile (PDF)</a>
+      </div>
+      <div class="foot-col">
+        <h5>Compliance</h5>
+        <a href="#certifications">APEDA</a>
+        <a href="#certifications">FSSAI</a>
+        <a href="#certifications">IEC / GST</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 Namami Food Agro. All rights reserved.</p>
+      <p>Quality from nature, goodness to the world.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile nav
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    burger.classList.toggle('open');
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Product category tabs
+  document.querySelectorAll('.cat-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.cat).classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // RFQ form (demo only — no backend wired up)
+  document.getElementById('rfqForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    const original = btn.textContent;
+    btn.textContent = 'Inquiry Received ✓';
+    btn.style.background = 'var(--gold-light)';
+    setTimeout(() => { btn.textContent = original; btn.style.background = ''; }, 2400);
+  });
+</script>
+
+</body>
+</html>
